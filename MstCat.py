@@ -57,7 +57,7 @@ start_row = (st.session_state.page_number - 1) * page_size
 end_row = start_row + page_size  
 st.dataframe(df_selection.iloc[start_row:end_row],use_container_width=True)  
 
-# Navigation buttons  
+# Pagination buttons  
 col1, col2, col3 = st.columns([7, 7, 2])  
 with col1:  
     if st.button("Previous") and st.session_state.page_number > 1:  
