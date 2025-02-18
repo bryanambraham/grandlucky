@@ -3,46 +3,43 @@ import pandas as pd
 import plotly.express as px
 from streamlit_option_menu import option_menu
 from numerize.numerize import numerize
-from queryMstCat import *
+from queries.queryMstDepartment import *
 
-
-st.set_page_config(page_title="Dasboard GrandLucky", page_icon="🏢", layout="wide")
-st.subheader("🎮Master Category")
-st.markdown("##")
+st.set_page_config(page_title="Departments", page_icon="🏢", layout="wide")
+st.subheader("🏢Departments")
 
 #fetch data
-result=view_all_data_master_categoryhw()
-df=pd.DataFrame(result, columns=["NOU","Category_Name", "Date_Updated", "Updated_By"])
-
-# buat nampilin df nya
-# st.dataframe(df)
+result=view_all_data_master_dept()
+df=pd.DataFrame(result, columns=["Nou","Dept_id","Dept","date_update","user_update"])
 
 #side bar
 st.sidebar.image("assets/gl.png",caption="Welcome to GrandLucky's IT Dashboard")
 
 #switcher
 st.sidebar.header("Filters Options")
-category=st.sidebar.multiselect(
-    "Category Name: ",
-    options=df["Category_Name"].unique(),
-    default=df["Category_Name"].unique(),
+# dept_id=st.sidebar.multiselect(
+#     "Which Department ID: ",
+#     options=df["Dept_id"].unique(),
+#     default=df["Dept_id"].unique(),
+# )
+
+updated_by=st.sidebar.multiselect(
+    "Choose User: ",
+    options=df["user_update"].unique(),
+    default=df["user_update"].unique(),
 )
 
-date=st.sidebar.multiselect(
-    "Latest Update Date: ",
-    options=df["Date_Updated"].unique(),
-    default=df["Date_Updated"].unique(),
-)
-
-user=st.sidebar.multiselect(
-    "Latest Update by: ",
-    options=df["Updated_By"].unique(),
-    default=df["Updated_By"].unique(),
+dept=st.sidebar.multiselect(
+    "Choose Department: ",
+    options=df["Dept"].unique(),
+    default=df["Dept"].unique(),
 )
 
 df_selection=df.query(
-    "Category_Name==@category & Date_Updated==@date & Updated_By==@user"
+    "Dept==@dept & user_update==@updated_by"
 )
+
+# st.dataframe(df_selection,use_container_width=True)
 
 # Pagination setup  
 page_size = 15  
