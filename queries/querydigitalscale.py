@@ -1,8 +1,7 @@
 import mysql.connector
 import streamlit as st
 
-#connection
-conn=mysql.connector.connect(
+conn = mysql.connector.connect(
     host="localhost",
     port="3306",
     user="root",
@@ -12,8 +11,8 @@ conn=mysql.connector.connect(
 
 c=conn.cursor()
 
-#fetch data
-def view_all_data_master_stok():
-    c.execute("select * from master_stok order by NOU asc")
+#fetching data
+def view_digitalscale():
+    c.execute("select * from digital_scale_log order by nou asc")
     data=c.fetchall()
     return data

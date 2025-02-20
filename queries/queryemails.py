@@ -13,7 +13,7 @@ conn=mysql.connector.connect(
 c=conn.cursor()
 
 #fetch data
-def view_all_data_master_stok():
-    c.execute("select * from master_stok order by NOU asc")
+def view_all_data_emails():
+    c.execute("select * from mail order by NOU asc")
     data=c.fetchall()
     return data
