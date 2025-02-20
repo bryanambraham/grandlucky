@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from queries.queryoutlets import *
+from io import BytesIO
 
 def main():
     st.subheader("Outlet's Lists: ")
@@ -26,6 +27,18 @@ def main():
     )
 
     st.dataframe(df_selection, use_container_width=True)
+
+            # Export to Excel
+    if st.button("Export ke Excel"):
+        output = BytesIO()
+        with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+            df_selection.to_excel(writer, index=False, sheet_name="Data")
+        st.download_button(
+            label="Download Excel",
+            data=output.getvalue(),
+            file_name="Outlets.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 
 if __name__ == "__main__":
     main()

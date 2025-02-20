@@ -4,6 +4,7 @@ import plotly.express as px
 from streamlit_option_menu import option_menu
 from numerize.numerize import numerize
 from queries.queryMstDepartment import *
+from io import BytesIO
 
 # st.set_page_config(page_title="Departments", page_icon="🏢", layout="wide")
 
@@ -66,6 +67,18 @@ def main():
 
     # Show data range  
     st.write(f"Showing {start_row + 1}-{min(end_row, len(df_selection))} of {len(df_selection)}") 
+
+            # Export to Excel
+    if st.button("Export ke Excel"):
+        output = BytesIO()
+        with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+            df_selection.to_excel(writer, index=False, sheet_name="Data")
+        st.download_button(
+            label="Download Excel",
+            data=output.getvalue(),
+            file_name="MasterDepartment.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from queries.queryms_inv import *
+from io import BytesIO
 
 def main():
     st.subheader("IT Inventaris")
@@ -100,6 +101,18 @@ def main():
 
     # Show data range  
     st.write(f"Showing {start_row + 1}-{min(end_row, len(df_selection))} of {len(df_selection)}")  
+
+        # Export to Excel
+    if st.button("Export ke Excel"):
+        output = BytesIO()
+        with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+            df_selection.to_excel(writer, index=False, sheet_name="Data")
+        st.download_button(
+            label="Download Excel",
+            data=output.getvalue(),
+            file_name="IT_Inventaris.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 
 if __name__ == "__main__":
     main()
