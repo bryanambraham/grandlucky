@@ -29,7 +29,6 @@ def main():
             
     else:
         # Jika belum login, hanya tampilkan halaman Login dan Registrasi
-        st.sidebar.image("assets/gl.png",caption="Welcome to GrandLucky's IT Dashboard")    
         page = st.sidebar.selectbox("Pilih Halaman", ("Login", "Registrasi"))
         if page == "Login":
             login_user()  # Tampilkan halaman login
