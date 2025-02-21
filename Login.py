@@ -34,6 +34,7 @@ def login_user():
                 st.session_state["logged_in"] = True
                 st.session_state["username"] = username
                 st.session_state["userlevel"] = user[3]
+                st.session_state["profilepic"] = user[6]
                 st.success("Login berhasil! Selamat datang.")
                 st.experimental_rerun()  # Memuat ulang aplikasi dan langsung ke halaman Home
             else:

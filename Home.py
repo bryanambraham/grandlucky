@@ -16,6 +16,11 @@ def home_page():
         st.button("Kembali ke Login", on_click=lambda: st.session_state.update(logged_in=False))
     else:
         st.header(f'Selamat datang, {st.session_state["username"]}! 👋')
+
+        #nampilin profile/gambar user dari db
+        st.sidebar.header(f'Username: {st.session_state["username"]}')
+        st.sidebar.subheader(f'User Level: {st.session_state.get("userlevel")}')
+
         st.write(f'Level: {st.session_state.get("userlevel")}')
         #side bar
         st.sidebar.image("assets/gl.png",caption="Welcome to GrandLucky's IT Dashboard")        

@@ -24,7 +24,7 @@ def register_user():
     activated = st.selectbox('Status', ['Y', 'N'])
     image = st.file_uploader("Upload Profile Image", type=['jpg', 'jpeg', 'png'])
     date = st.date_input("Date")
-    user_update = st.text_input("User_update")
+    user = st.text_input("User_update")
     if st.button("Registrasi"):
         if username and password and email:
             conn = connect_to_db()
@@ -44,7 +44,7 @@ def register_user():
                 if image is not None:
                     image_data = image.read()
                 
-                cursor.execute(query, (user_id, username, password, user_level, email, activated, image_data))
+                cursor.execute(query, (user_id, username, password, user_level, email, activated, image_data, date, user))
                 conn.commit()
                 cursor.close()
                 conn.close()
